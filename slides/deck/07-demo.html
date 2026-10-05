@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>19–21 — Live-demo</title>
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <section>
+      <p class="kicker">19 · Demo</p>
+      <h2>Экспорт отчёта в Markdown</h2>
+      <ol class="three-takeaways">
+        <li>Фиксированный порядок секций</li>
+        <li>Безопасные специальные символы</li>
+        <li>Явное поведение для пустых данных</li>
+      </ol>
+      <p class="prompt">Выбор аудитории: пустое состояние или ошибка?</p>
+      <aside class="notes">
+        Оба варианта должны быть подготовлены заранее. Зафиксировать выбор до кода:
+        первое полезное действие — снятая неоднозначность.
+      </aside>
+    </section>
+
+    <section>
+      <p class="kicker">20 · Live-demo · 20 минут</p>
+      <h2>От требования до проверки</h2>
+      <div class="flow">
+        <span>Discuss</span><i>→</i><span>Plan</span><i>→</i><span>Red</span><i>→</i><span>Green</span><i>→</i><span>Verify</span><i>→</i><span>Graph</span>
+      </div>
+      <div class="placeholder">Переключиться в IDE<br />Fallback: checkpoints · артефакты · скриншоты</div>
+      <p class="prompt">45 секунд без результата → checkpoint</p>
+      <aside class="notes">
+        Следовать plan/04-live-demo-runbook.md. После каждого шага назвать:
+        какой артефакт появился, какое решение он фиксирует и как будет проверен.
+      </aside>
+    </section>
+
+    <section>
+      <p class="kicker">21 · Разбор</p>
+      <h2>Что произошло на самом деле</h2>
+      <div class="flow">
+        <span>Намерение<br /><small>сняли неоднозначность</small></span>
+        <i>→</i>
+        <span>План<br /><small>ограничили scope</small></span>
+        <i>→</i>
+        <span>Тест<br /><small>зафиксировали поведение</small></span>
+        <i>→</i>
+        <span>Verify<br /><small>проверили цель</small></span>
+        <i>→</i>
+        <span>Graph<br /><small>сохранили путь</small></span>
+      </div>
+      <p class="prompt">На каком шаге неоднозначность стала видимой?</p>
+      <aside class="notes">
+        Единственного правильного ответа нет: разные защитные слои ловят разные
+        проблемы. Вернуться к исходному требованию и пройти цепочку артефактов.
+      </aside>
+    </section>
+
+    <script type="module" src="/src/solo.js"></script>
+  </body>
+</html>

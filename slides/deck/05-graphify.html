@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>11–13 — Graphify</title>
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <section>
+      <p class="kicker">11 · Изменение</p>
+      <h2>Решение изменилось. Что ещё нужно обновить?</h2>
+      <p class="quote">Пустой отчёт: ошибка → файл «Нет данных»</p>
+      <div class="flow">
+        <span>Спецификация</span>
+        <i>?</i>
+        <span>Критерии</span>
+        <i>?</i>
+        <span>Тесты</span>
+        <i>?</i>
+        <span>Код</span>
+        <i>?</i>
+        <span>Документация</span>
+      </div>
+      <p class="prompt">Связи существуют. Но как быстро найти и проверить их все?</p>
+      <aside class="notes">
+        Сказать: «Изменилось одно решение. Теперь нужно найти все места, которые
+        от него зависят». Каждый документ полезен отдельно, но путь изменения
+        проходит через связи между ними. Эти связи можно поддерживать вручную,
+        но их трудно быстро найти и проверить. Переход: «Graphify делает этот путь
+        видимым».
+      </aside>
+    </section>
+
+    <section>
+      <p class="kicker">12 · Graphify</p>
+      <h2>Graphify строит постоянную карту проекта</h2>
+      <figure class="graphify-shot">
+        <img
+          src="/images/graphify-ar-email-landing.png?v=2"
+          alt="Реальный UI Graphify: лёгкий граф ar-email-landing с communities и панелью Node Info"
+          width="1600"
+          height="900"
+        />
+        <figcaption>ar-email-landing · фрагмент графа · package.json</figcaption>
+      </figure>
+      <p class="prompt">Запрос → связанный маршрут с источниками → меньше повторного чтения в контекст</p>
+      <aside class="notes">
+        Graphify превращает корпус кода и документов в навигационный граф:
+        сущности становятся узлами, отношения — рёбрами, а связь ведёт к
+        первичному источнику. Карта сохраняется между запросами, поэтому агенту
+        не нужно каждый раз заново реконструировать проект последовательным
+        чтением файлов. Запрос возвращает ограниченный связанный маршрут —
+        например Requirement → Plan → Module → Test — и снижает давление на
+        окно контекста. Graphify не отменяет лимит контекста и не гарантирует
+        полноту графа. У одной связи кратко показать источник и уровень
+        уверенности, не разворачивая provenance в отдельную лекцию.
+      </aside>
+    </section>
+
+    <section>
+      <p class="kicker">13 · Граница</p>
+      <h2>Карта показывает путь,<br />но не проводит по нему</h2>
+      <div class="card-grid two">
+        <div class="card">
+          <strong>Graphify</strong>
+          <small>Что связано и что затронуто?</small>
+        </div>
+        <div class="card">
+          <strong>GSD</strong>
+          <small>Как провести изменение до проверенного результата?</small>
+        </div>
+      </div>
+      <p class="quote">Навигация по знанию ≠ процесс работы</p>
+      <aside class="notes">
+        Это явная граница двух инструментов. Graphify показал зависимые части
+        изменения, но сам не согласует решение, не строит исполнимый план,
+        не меняет код и не проверяет результат. Переход: «Для прохождения
+        найденного пути нужен управляемый процесс. Здесь начинается GSD».
+      </aside>
+    </section>
+
+    <script type="module" src="/src/solo.js"></script>
+  </body>
+</html>

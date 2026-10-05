@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>03–06 — Контекст и memory bank</title>
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <section>
+      <p class="kicker">03 · Опрос</p>
+      <h2>Ваш AI-агент часто<br />теряет контекст?</h2>
+      <div class="card-grid">
+        <div class="card"><strong>Решение забыто</strong><small>Агент предлагает вариант, который мы уже отвергли</small></div>
+        <div class="card"><strong>Код работает</strong><small>Но не вписывается в архитектуру и стандарты проекта</small></div>
+        <div class="card"><strong>Задача закрыта</strong><small>Пользовательский результат не достигнут</small></div>
+      </div>
+      <div class="context-question">
+        <p>Часто сталкиваетесь с этим на больших проектах?</p>
+        <button
+          type="button"
+          class="context-trigger"
+          data-popover-open="context-explainer"
+          aria-controls="context-explainer"
+          aria-expanded="false"
+          aria-haspopup="dialog"
+        >
+          Почему же так происходит?
+        </button>
+      </div>
+      <div
+        id="context-explainer"
+        class="context-popover"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="context-explainer-title"
+        hidden
+      >
+        <div class="context-popover-panel">
+          <div class="context-popover-head">
+            <p class="kicker">Коротко о механике</p>
+            <button type="button" class="context-popover-close" data-popover-close>
+              Закрыть
+            </button>
+          </div>
+          <h3 id="context-explainer-title">Для каждого запроса агент заново собирает карту проекта</h3>
+          <p class="context-popover-intro">
+            Весь код, документацию, правила и историю невозможно одновременно
+            передать модели — недостающие связи приходится искать.
+          </p>
+          <div class="flow context-popover-flow">
+            <span>Запрос</span><i>→</i><span>Поиск<br /><small>grep · usages</small></span><i>→</i><span>Новые файлы<br />и связи</span><i>→</i><span>Ещё поиск</span><i>→</i><span>Контекст растёт</span>
+          </div>
+          <p class="context-popover-quote">
+            Чем дольше поиск, тем меньше места остаётся для действительно важного.
+          </p>
+          <p class="context-popover-caveat">
+            Проблема не в grep. Без устойчивой карты связей агент каждый раз
+            реконструирует проект по отдельным текстовым следам.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="context-popover-backdrop"
+          data-popover-close
+          tabindex="-1"
+          aria-label="Закрыть объяснение"
+        ></button>
+      </div>
+      <aside class="notes">
+        Сначала спросить, кто регулярно работает с AI-агентами. Затем пройти три
+        карточки поднятием рук. Во второй карточке привести пример: код компилируется,
+        но дублирует существующий механизм, обходит архитектурный паттерн, нарушает
+        гайдлайны или не проходит quality bar команды. Не обсуждать ответы подробно —
+        сейчас нужна общая боль. Popup объясняет общий механизм. Cursor использовать
+        только как знакомый пример: поиск символа ведёт к usages, импортам, чтению
+        новых файлов и следующему поиску; все результаты попадают в то же окно.
+        Уточнить: уже найденный контекст может переиспользоваться, но недостающую
+        рабочую карту всё равно приходится достраивать под конкретный запрос.
+      </aside>
+    </section>
+
+    <section>
+      <p class="kicker">04 · Следствие</p>
+      <h2>В результате код стал дешевле.<br />А координация — нет.</h2>
+      <div class="metric-split">
+        <div class="metric"><b>Быстрее</b><em>генерация и локальные изменения</em></div>
+        <div class="metric"><b>Дороже</b><em>понимание, согласование и проверка</em></div>
+      </div>
+      <p class="prompt">Личный пример №1: цена потерянного решения</p>
+      <aside class="notes">
+        Рассказать один реальный эпизод по схеме: ситуация → последствие → измеримая
+        цена. Главный вывод: узким местом стала не скорость набора кода.
+      </aside>
+    </section>
+
+    <section>
+      <p class="kicker">05 · Первая попытка</p>
+      <h2>Memory bank помогает.<br />Пока не начинает отставать.</h2>
+      <div class="card-grid two">
+        <div class="card">
+          <strong>Сохраняет</strong>
+          <small>цель · решения · текущий фокус · следующие шаги</small>
+        </div>
+        <div class="card">
+          <strong>Не гарантирует</strong>
+          <small>актуальность · связи · непротиворечивость · исполнение</small>
+        </div>
+      </div>
+      <p class="prompt">Когда memory bank перестаёт быть рабочей памятью?</p>
+      <aside class="notes">
+        Сначала признать пользу: memory bank быстро создать и легко читать.
+        Затем назвать предел: документ хранит сведения, но сам не поддерживает
+        актуальность, не проверяет поведение и не восстанавливает сеть связей.
+      </aside>
+    </section>
+
+    <section>
+      <p class="kicker">06 · Поворот</p>
+      <h2>Хранить контекст недостаточно.<br />Им нужно управлять.</h2>
+      <div class="card-grid four">
+        <div
+          class="card"
+          role="button"
+          tabindex="0"
+          data-popover-open="sdd-explainer"
+          aria-controls="sdd-explainer"
+          aria-expanded="false"
+          aria-haspopup="dialog"
+        >
+          <strong>Намерение</strong>
+          <small>Spec-Driven Development</small>
+        </div>
+        <div
+          class="card"
+          role="button"
+          tabindex="0"
+          data-popover-open="tdd-explainer"
+          aria-controls="tdd-explainer"
+          aria-expanded="false"
+          aria-haspopup="dialog"
+        >
+          <strong>Поведение</strong>
+          <small>Test-Driven Development</small>
+        </div>
+        <div class="card"><strong>Связи</strong><small>Graphify</small></div>
+        <div class="card"><strong>Процесс</strong><small>GSD</small></div>
+      </div>
+      <p class="prompt">От памяти — к системе работы</p>
+      <div
+        id="sdd-explainer"
+        class="context-popover"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sdd-explainer-title"
+        hidden
+      >
+        <div class="context-popover-panel context-popover-panel--compact">
+          <div class="context-popover-head">
+            <p class="kicker">SDD · Spec-Driven Development</p>
+            <button type="button" class="context-popover-close" data-popover-close>
+              Закрыть
+            </button>
+          </div>
+          <h3 id="sdd-explainer-title">Спецификация удерживает намерение</h3>
+          <p class="context-popover-intro">
+            До кода фиксируем: что строим, зачем, для кого, где граница scope
+            и по каким критериям примем результат.
+          </p>
+          <p class="context-popover-quote">
+            Без неё агент каждый раз заново угадывает замысел.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="context-popover-backdrop"
+          data-popover-close
+          tabindex="-1"
+          aria-label="Закрыть объяснение"
+        ></button>
+      </div>
+      <div
+        id="tdd-explainer"
+        class="context-popover"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tdd-explainer-title"
+        hidden
+      >
+        <div class="context-popover-panel context-popover-panel--compact">
+          <div class="context-popover-head">
+            <p class="kicker">TDD · Test-Driven Development</p>
+            <button type="button" class="context-popover-close" data-popover-close>
+              Закрыть
+            </button>
+          </div>
+          <h3 id="tdd-explainer-title">Поведение становится проверяемым</h3>
+          <p class="context-popover-intro">
+            Сначала падающий тест на наблюдаемое поведение, затем минимальный код
+            и рефакторинг без смены смысла.
+          </p>
+          <p class="context-popover-quote">
+            Зелёный тест ≠ достигнутая продуктовая цель.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="context-popover-backdrop"
+          data-popover-close
+          tabindex="-1"
+          aria-label="Закрыть объяснение"
+        ></button>
+      </div>
+      <aside class="notes">
+        Это карта оставшейся встречи. Memory bank отвечает только на вопрос
+        «что мы записали». Дальше нужны отдельные механизмы для намерения,
+        проверяемого поведения, связей и процесса выполнения. По клику кратко
+        раскрыть Spec-Driven и Test-Driven Development. Переход: проверить обе
+        идеи на одном намеренно неоднозначном требовании.
+      </aside>
+    </section>
+
+    <script type="module" src="/src/solo.js"></script>
+  </body>
+</html>
