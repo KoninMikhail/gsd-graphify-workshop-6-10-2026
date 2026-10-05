@@ -744,21 +744,23 @@ body,
 .graphify-shot {
   box-sizing: border-box;
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
-  width: min(100%, 68rem);
-  height: min(28rem, 58vh);
+  width: 100%;
+  min-height: 0;
   margin: 0.5rem 0 0;
   overflow: hidden;
-  background: #080808;
+  background: #0f0f1a;
   border: 1px solid rgba(255, 255, 255, 0.28);
 }
 
-.graphify-shot img {
+.graphify-shot iframe {
   display: block;
+  flex: 1 1 auto;
   width: 100%;
-  height: calc(100% - 1.7rem);
-  object-fit: cover;
-  object-position: left center;
+  min-height: 0;
+  border: 0;
+  background: #0f0f1a;
 }
 
 .graphify-shot figcaption {
